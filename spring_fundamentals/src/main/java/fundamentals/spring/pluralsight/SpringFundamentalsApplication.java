@@ -1,4 +1,4 @@
-package fundamentals.spring.pluralsight.spring_fundamentals;
+package fundamentals.spring.pluralsight;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package fundamentals.spring.pluralsight.spring_fundamentals;
+package fundamentals.spring.pluralsight;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
