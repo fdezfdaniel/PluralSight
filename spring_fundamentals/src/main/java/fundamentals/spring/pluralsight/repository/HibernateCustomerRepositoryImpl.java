@@ -9,7 +9,6 @@ public class HibernateCustomerRepositoryImpl implements CustomerRepository {
 	/* (non-Javadoc)
 	 * @see fundamentals.spring.pluralsight.repository.CustomerRepository#findAll()
 	 */
-	@Override
 	public List<Customer> findAll(){
 		List<Customer> customersList = new ArrayList<Customer>();
 		Customer customer = new Customer();

@@ -12,7 +12,6 @@ public class CustomerServiceImpl implements CustomerService {
 	/* (non-Javadoc)
 	 * @see fundamentals.spring.pluralsight.service.CustomerService#findAll()
 	 */
-	@Override
 	public List<Customer> findAll(){
 		return customerRepository.findAll();
 	}
