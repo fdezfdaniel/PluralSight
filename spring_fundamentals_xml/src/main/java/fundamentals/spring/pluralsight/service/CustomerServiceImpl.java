@@ -8,6 +8,10 @@ import fundamentals.spring.pluralsight.repository.CustomerRepository;
 public class CustomerServiceImpl implements CustomerService {
 	private CustomerRepository customerRepository; //= new HibernateCustomerRepositoryImpl();
 	
+	public CustomerServiceImpl(CustomerRepository customerRepository) {
+		this.customerRepository = customerRepository;
+	}
+	
 	public List<Customer> findAll(){
 		return customerRepository.findAll();
 	}

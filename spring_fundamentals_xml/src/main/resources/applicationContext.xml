@@ -12,7 +12,7 @@
 
 	<bean name="customerService"
 		class="fundamentals.spring.pluralsight.service.CustomerServiceImpl">
-		<property name="customerRepository" ref="customerRepository"/>
+		<constructor-arg index="0" ref="customerRepository"/>
 	</bean>
 
 
