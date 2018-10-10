@@ -1,23 +1,22 @@
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
-import fundamentals.spring.pluralsight.repository.CustomerRepository;
-import fundamentals.spring.pluralsight.repository.HibernateCustomerRepositoryImpl;
-import fundamentals.spring.pluralsight.service.CustomerService;
-import fundamentals.spring.pluralsight.service.CustomerServiceImpl;
-
 @Configuration
+@ComponentScan({"fundamentals.spring"})
 public class AppConfig {
-	@Bean(name="customerService")
+	/**@Bean(name="customerService")
 	public CustomerService getCustomerService() {
-		CustomerServiceImpl service =  new CustomerServiceImpl();
-		service.setCustomerRepository(getCustomerRepository());
+		//using constructor injection no Autowired
+		//CustomerServiceImpl service =  new CustomerServiceImpl(getCustomerRepository());
+		CustomerServiceImpl service = new CustomerServiceImpl();
+		//using setter injection no Autowired
+		//service.setCustomerRepository(getCustomerRepository());
 		return service;
-	}
+	}**/
 	
-	@Bean(name="customerRepository")
+	/**@Bean(name="customerRepository")
 	public CustomerRepository getCustomerRepository() {
 		return new HibernateCustomerRepositoryImpl();
-	}
+	}**/
 
 }
