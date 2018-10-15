@@ -13,11 +13,49 @@
 	<mvc:resources location="pdfs" mapping="/pdfs/**" />
 
 	<context:component-scan
-		base-package="com.pluralsight.controller" />
-		
-		<mvc:interceptors>
-			<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" p:paramName="language"/>
-		</mvc:interceptors>
+		base-package="com.pluralsight" />
+
+	<bean
+		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="order" value="0"></property>
+		<property name="contentNegotiationManager">
+			<bean
+				class="org.springframework.web.accept.ContentNegotiationManager">
+				<constructor-arg>
+					<bean
+						class="org.springframework.web.accept.PathExtensionContentNegotiationStrategy">
+						<constructor-arg>
+							<map>
+								<entry key="json" value="application/json" />
+								<entry key="xml" value="application/xml" />
+							</map>
+						</constructor-arg>
+					</bean>
+				</constructor-arg>
+			</bean>
+		</property>
+		<property name="defaultViews">
+			<list>
+				<bean
+					class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />
+				<bean
+					class="org.springframework.web.servlet.view.xml.MarshallingView">
+					<constructor-arg>
+						<bean
+							class="org.springframework.oxm.xstream.XStreamMarshaller">
+							<property name="autodetectAnnotations" value="true" />
+						</bean>
+					</constructor-arg>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<mvc:interceptors>
+		<bean
+			class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"
+			p:paramName="language" />
+	</mvc:interceptors>
 
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource"
@@ -26,13 +64,15 @@
 	<bean id="localeResolver"
 		class="org.springframework.web.servlet.i18n.SessionLocaleResolver"
 		p:defaultLocale="en" />
-		
+
 	<!-- <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"> 
 		<property name="prefix" value="/WEB-INF/jsp/" /> <property name="suffix" 
 		value=".jsp" /> </bean> -->
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
-		p:prefix="/WEB-INF/jsp/" p:suffix=".jsp" />
+		p:prefix="/WEB-INF/jsp/" p:suffix=".jsp" p:order="1" />
+
+
 
 </beans>
