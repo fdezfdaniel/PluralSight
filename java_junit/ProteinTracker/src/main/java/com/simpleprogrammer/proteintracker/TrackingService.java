@@ -3,6 +3,8 @@ package com.simpleprogrammer.proteintracker;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.simpleprogrammer.proteintracker.exceptions.InvalidGoalException;
+
 public class TrackingService {
 	private int total;
 	private int goal;
@@ -28,7 +30,9 @@ public class TrackingService {
 		return total;
 	}
 
-	public void setGoal(int value) {
+	public void setGoal(int value) throws InvalidGoalException {
+		if (value < 0)
+			throw new InvalidGoalException();
 		goal = value;
 	}
 
