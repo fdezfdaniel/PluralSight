@@ -1,4 +1,4 @@
-package com.simpleprogrammer.proteintracker.ProteinTracker;
+package com.simpleprogrammer.proteintracker.testcases;
 
 import static org.junit.Assert.fail;
 
