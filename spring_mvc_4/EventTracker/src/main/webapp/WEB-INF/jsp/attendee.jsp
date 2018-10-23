@@ -30,9 +30,13 @@
 		<form:input path="name" cssErrorClass="error" />
 		<form:errors path="name" cssClass="error" />
 		<br>
-		<label for="textinput1"><spring:message code="attendee.email" />:</label>
+		<label for="textinput2"><spring:message code="attendee.email" />:</label>
 		<form:input path="email" cssErrorClass="error" />
 		<form:errors path="email" cssClass="error" />
+		<br>
+		<label for="textinput3"><spring:message code="attendee.phone" />:</label>
+		<form:input path="phone" cssErrorClass="error" />
+		<form:errors path="phone" cssClass="error" />
 		<br>
 		<input type="submit" class="btn" value="Enter Attendee" />
 	</form:form>
