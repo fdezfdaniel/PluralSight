@@ -74,4 +74,62 @@ public class LocationPersistenceTests {
 		List<Location> locationsList = locationJpaRepository.findAll();
 		assertNotNull(locationsList);
 	}
+	
+	@Test
+	@Transactional
+	public void testCRUDOperationsLocationJpaRepository() {
+		Location location = new Location();
+		location.setCountry("Canada");
+		location.setState("British Columbia");
+		location = locationJpaRepository.saveAndFlush(location);
+		
+		// clear the persistence context so we don't return the previously cached location object
+		// this is a test only thing and normally doesn't need to be done in prod code
+		entityManager.clear();
+
+		Location otherLocation = locationJpaRepository.findOne(location.getId());
+		assertEquals("Canada", otherLocation.getCountry());
+		assertEquals("British Columbia", otherLocation.getState());
+		
+		//delete BC location now
+		locationJpaRepository.delete(otherLocation);
+	}
+	
+	@Test
+	public void testLocationJpaRepositoryFindByStateLike() {
+		List<Location> locs = locationJpaRepository.findByStateLike("New%");
+		assertEquals(4, locs.size());
+	}
+	
+	@Test
+	@Transactional  //note this is needed because we will get a lazy load exception unless we are in a tx
+	public void testLocationJpaRepositoryFindWithChildren() throws Exception {
+		Location arizona = locationJpaRepository.findOne(3L);
+		assertEquals("United States", arizona.getCountry());
+		assertEquals("Arizona", arizona.getState());
+		
+		assertEquals(1, arizona.getManufacturers().size());
+		
+		assertEquals("Fender Musical Instruments Corporation", arizona.getManufacturers().get(0).getName());
+	}
+	
+	@Test
+	public void testFindByStateAndCountry() {
+		List<Location> locationsList = locationJpaRepository.findByStateAndCountry("Utah", "United States");
+		assertNotNull(locationsList);
+		assertEquals("Utah", locationsList.get(0).getState());
+	}
+	
+	@Test
+	public void testFindByStateOrCountry() {
+		List<Location> locationsList = locationJpaRepository.findByStateOrCountry("Utah", "Utah");
+		assertNotNull(locationsList);
+		assertEquals("Utah", locationsList.get(0).getState());
+	}
+	
+	@Test
+	public void testFindByStateStartingWith() {
+		List<Location> locationsList = locationJpaRepository.findByStateStartingWith("New");
+		assertEquals(4, locationsList.size());
+	}
 }
